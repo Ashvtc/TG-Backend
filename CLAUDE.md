@@ -26,7 +26,9 @@ There are currently no `*.spec.ts` files and no `test/` directory, so `test:e2e`
 
 ## Environment
 
-Copy `.env.example` to `.env` and set `DB_USERNAME`, `DB_PASS`, `DB_HOST`, `DB_NAME`, `DB_PORT` (plus optional `PORT`). `AppModule` configures TypeORM with `autoLoadEntities: true` and `synchronize: true` — entity changes alter the database schema on startup; there are no migrations.
+Copy `.env.example` to `.env` and set `DB_USERNAME`, `DB_PASS`, `DB_HOST`, `DB_NAME`, `DB_PORT` (plus optional `PORT`). TypeORM's `synchronize` is enabled only when `DB_SYNC=true` (use it for local development only) — with it on, entity changes alter the database schema on startup.
+
+Production (Clever Cloud PostgreSQL) runs with `DB_SYNC` unset: its DB user lacks permission on `pg_database`, so TypeORM's schema introspection crashes the app at boot. The production schema is created from `db/schema.sql` instead (idempotent; `psql "<url>" -v ON_ERROR_STOP=1 -f db/schema.sql`). There are no migrations, so any entity change must also be reflected by hand in `db/schema.sql` and applied to production.
 
 ## Architecture
 

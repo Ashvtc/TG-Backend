@@ -24,7 +24,7 @@ import { AreaModule } from './area/infrastructure/area.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASS,
       autoLoadEntities: true,
-      synchronize: true
+      synchronize: process.env.DB_SYNC === 'true'
     }),
 
     PermissionsModule,
