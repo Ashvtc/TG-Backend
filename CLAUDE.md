@@ -17,6 +17,8 @@ yarn build            # nest build -> dist/
 yarn start:prod       # node dist/main
 yarn lint             # eslint --fix (no eslint config file is currently committed)
 yarn format           # prettier
+yarn db:schema        # apply db/schema.sql to the DB in .env (idempotent)
+yarn db:copy          # copy all rows from SOURCE_DB_* to the DB in .env, keeping ids (one transaction, skips existing ids)
 yarn test             # jest, rootDir=src, matches *.spec.ts
 yarn test -- path/to/file.spec.ts   # single test file
 yarn test -- -t "test name"         # single test by name
